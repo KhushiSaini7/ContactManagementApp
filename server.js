@@ -7,10 +7,10 @@ const app= express();
 
 const port=process.env.PORT|| 5000;
 
-app.get("/api/contacts",(req,res)=>{
-    res.status(200).json({message:"Get all contacts"});
-})
+app.use(express.json());
+app.use("/api/contacts",require("../mycontacts-backend/routes/contactRoutes"));
+
 app.listen(5000,()=>{
-    console.log('server running on port', port);
+    console.log('server running on port', port );
 })
 
