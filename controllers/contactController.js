@@ -27,18 +27,43 @@ const createContact= asyncHandler(async (req,res)=>{
 });
 
 const getContactbyID= asyncHandler(async (req,res)=>{
-    res.status(200).json({message:"Get contact for",id:req.params.id});
-});
+    const contact = await  Contact.findById(req.params.id);
+    if(!contact){
+        res.status(404);
+        throw new Error("Contact Not found");
+    }
+    res.status(200).json(contact);
+}); 
 
-//@desc get all contacts
-//@route GET /api/contacts/:id
+//@desc update contacts
+//@route PUT /api/contacts/:id
 //@access public
 const updateContactbyId=asyncHandler(async(req,res)=>{
-    res.status(201).json({message:"update contacts for", id:req.params.id});
+    const contact = await  Contact.findById(
+        req.params.id);
+    if(!contact){
+        res.status(404);
+        throw new Error("Contact Not found");
+    }
+
+    const updatedContact= await Contact.findByIdAndUpdate (
+        req.params.id,
+        req.body,
+        {new:true}
+
+    );
+    res.status(200).json(updatedContact);
 });
 
+
 const deletecontactbyID= asyncHandler(async (req,res)=>{
-    res.status(200).json({message:"Delete contact for ",id:req.params.id});
+    const contact = await  Contact.findById(req.params.id);
+    if(!contact){
+        res.status(404);
+        throw new Error("Contact Not found");
+    }
+    await Contact.deleteOne();
+    res.status(200).json(contact);
 });
 
 module.exports= {getContact, createContact, getContactbyID, updateContactbyId, deletecontactbyID};

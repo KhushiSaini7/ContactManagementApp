@@ -7,8 +7,8 @@ try {
         connect.connection.host, 
         connect.connection.name);
         
-} catch (error) {
-    console.log(err)
+} catch (err) {
+    console.log(err);
     process.exit(1);
 }
 });
