@@ -1,19 +1,14 @@
 const express= require('express');
-
 const router= express.Router();
+const {registerUser, loginUser, currentUser}= require('../controllers/userController')
 
-//const {getUser,createUser, getbyID, updateContactbyId, deletecontactbyID}= require('../controllers/userController')
 
-router.post("/register",(req,res)=>{
-    res.json({message:"Register the User"});
-});
 
-router.post("/login",(req,res)=>{
-    res.json({message:"Register the User"});
-});
+router.post("/register",registerUser);
 
-router.post("/current",(req,res)=>{
-    res.json({message:"current user information"});
-});
+router.post("/login",loginUser);
+
+
+router.get("/current",currentUser);
 
 module.exports= router;
